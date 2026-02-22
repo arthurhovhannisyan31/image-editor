@@ -1,0 +1,11 @@
+[package]
+name = "image-processor"
+description = "Image processor"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
