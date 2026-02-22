@@ -1,0 +1,16 @@
+use std::io;
+use std::path::PathBuf;
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub(crate) enum ImageProcessorError {
+  #[error("IO Error")]
+  Io(#[from] io::Error),
+  #[error("Failed locating path: `{source_path:?}`")]
+  NotFound {
+    err: io::Error,
+    source_path: PathBuf,
+  },
+  #[error(transparent)]
+  OtherError(#[from] anyhow::Error),
+}
