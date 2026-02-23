@@ -3,11 +3,13 @@ use clap::Parser;
 
 mod configs;
 mod error;
+mod logging;
 
 use error::ImageProcessorError;
+use logging::init_logging;
 
 fn main() -> Result<(), ImageProcessorError> {
-  // env_logger || tracing
+  init_logging();
 
   let CliArgs {
     config,
