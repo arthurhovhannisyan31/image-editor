@@ -7,7 +7,7 @@ pub fn init_logging() {
     .with_env_filter(filter)
     .with_target(false)
     .with_level(true)
-    // .with_timer(fmt::time::UtcTime::rfc_3339())
+    .without_time()
     .finish();
 
   let _ = tracing::subscriber::set_global_default(subscriber);

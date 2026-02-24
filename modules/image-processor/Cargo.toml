@@ -10,6 +10,10 @@ rust-version.workspace = true
 
 [dependencies]
 anyhow.workspace = true
+common.workspace = true
 clap = { version = "4", features = ["derive"] }
-libloading = "0.9.0"
+image = { version = "0.25", features = [] }
+libloading.workspace = true
 thiserror.workspace = true
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
