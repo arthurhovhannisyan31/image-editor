@@ -9,3 +9,6 @@ repository.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+
+[lib]
+crate-type = ["lib", "cdylib"]

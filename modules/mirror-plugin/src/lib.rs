@@ -1,14 +1,19 @@
-pub fn add(left: u64, right: u64) -> u64 {
-  left + right
-}
+use std::ffi::c_char;
 
-#[cfg(test)]
-mod tests {
-  use super::*;
+#[unsafe(no_mangle)]
+extern "C" fn process_image(
+  width: u32,
+  height: u32,
+  data: *const u8,
+  data_len: usize,
+  params: *const c_char, // empty string or
+) {
+  println!("width: {width}");
+  println!("height: {height}");
+  println!("data: {data:?}");
+  println!("data_len: {data_len:?}");
+  println!("params: {params:?}");
 
-  #[test]
-  fn it_works() {
-    let result = add(2, 2);
-    assert_eq!(result, 4);
-  }
+  let buf = unsafe { core::slice::from_raw_parts(data, data_len) };
+  println!("buf: {buf:?}");
 }

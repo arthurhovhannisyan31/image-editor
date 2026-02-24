@@ -1,14 +1,10 @@
-pub fn add(left: u64, right: u64) -> u64 {
-  left + right
-}
+use std::ffi::c_char;
 
-#[cfg(test)]
-mod tests {
-  use super::*;
-
-  #[test]
-  fn it_works() {
-    let result = add(2, 2);
-    assert_eq!(result, 4);
-  }
+pub fn process_image(
+  width: u32,
+  height: u32,
+  data: *const u8,       // size is width * height * 4
+  params: *const c_char, // empty string or
+) {
+  //
 }
