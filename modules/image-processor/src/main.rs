@@ -27,13 +27,6 @@ fn main() -> Result<(), ImageProcessorError> {
 
   let image = ImageReader::open(input)?.decode()?;
 
-  // let mut image = RgbaImage::new(2, 2);
-  // image.put_pixel(0, 0, Rgba([001, 001, 001, 001]));
-  // image.put_pixel(1, 0, Rgba([002, 002, 002, 002]));
-  // image.put_pixel(0, 1, Rgba([003, 003, 003, 003]));
-  // image.put_pixel(1, 1, Rgba([004, 004, 004, 004]));
-  // let image = DynamicImage::from(image);
-
   let (width, height) = image.dimensions();
 
   let rgb_image = image.to_rgba8();

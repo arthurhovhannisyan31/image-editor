@@ -10,7 +10,6 @@ pub struct PluginInterface<'a> {
       width: u32,
       height: u32,
       data: *const u8,
-      data_len: usize,
       params: *const c_char, // empty string or
     ),
   >,
