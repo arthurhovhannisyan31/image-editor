@@ -4,6 +4,7 @@ use std::path::PathBuf;
 use std::str::FromStr;
 
 use clap::{Parser, builder::NonEmptyStringValueParser};
+use serde::de::IgnoredAny;
 
 use crate::error::ImageProcessorError;
 
@@ -21,9 +22,8 @@ pub struct CliArgs {
   pub plugin_dir: PathBuf,
   #[arg(long, short = 'p', value_name = "Plugin name without platform extension", value_parser = NonEmptyStringValueParser::new())]
   pub plugin_name: String,
-  #[arg(long, short = 'c', value_name = "Config file", value_parser = path_validation)]
-  // TODO Maybe add config extension whitelist
-  pub config: PathBuf,
+  #[arg(long, short = 'c', value_name = "Config JSON", value_parser = json_validation)]
+  pub config: String,
 }
 
 fn path_validation(path: &str) -> Result<PathBuf, ImageProcessorError> {
@@ -57,4 +57,11 @@ fn image_path_validation(path: &str) -> Result<PathBuf, ImageProcessorError> {
     ErrorKind::InvalidFilename,
     "Failed reading file extension",
   )))
+}
+
+fn json_validation(str: &str) -> Result<String, serde_json::Error> {
+  match serde_json::from_str::<IgnoredAny>(str) {
+    Ok(_) => Ok(str.to_string()),
+    Err(err) => Err(err),
+  }
 }
