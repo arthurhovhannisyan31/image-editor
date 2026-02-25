@@ -197,7 +197,6 @@ dependencies = [
 name = "blur-plugin"
 version = "0.1.0"
 dependencies = [
- "image",
  "libblur",
  "serde",
  "serde_json",

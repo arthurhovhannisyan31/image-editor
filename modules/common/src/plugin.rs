@@ -22,8 +22,6 @@ impl Plugin {
     let lib_name = library_filename(name);
     let path = path.join(lib_name);
 
-    println!("path: {path:?}");
-
     Ok(Plugin(unsafe { Library::new(path) }?))
   }
   pub fn interface(&self) -> Result<PluginInterface<'_>, libloading::Error> {

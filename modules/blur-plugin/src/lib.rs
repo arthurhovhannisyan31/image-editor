@@ -1,8 +1,8 @@
 use libblur::{
-  fast_gaussian, AnisotropicRadius, BlurImageMut, EdgeMode2D,
-  FastBlurChannels, ThreadingPolicy,
+  AnisotropicRadius, BlurImageMut, EdgeMode2D, FastBlurChannels,
+  ThreadingPolicy, fast_gaussian,
 };
-use std::ffi::{c_char, CString};
+use std::ffi::{CString, c_char};
 use std::process;
 
 mod params;
@@ -29,7 +29,7 @@ extern "C" fn process_image(
     data: libblur::BufferStore::Borrowed(buf),
     width,
     height,
-    stride: width * 4,
+    stride: width,
     channels: FastBlurChannels::Channels3,
   };
 
