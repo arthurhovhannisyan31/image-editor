@@ -13,10 +13,10 @@ pub(crate) enum ImageProcessorError {
     err: io::Error,
     source_path: PathBuf,
   },
-  #[error(transparent)]
-  OtherError(#[from] anyhow::Error),
   #[error("Image error")]
   ImageError(#[from] ImageError),
   #[error("Failed loading library")]
   LibLoadingError(#[from] libloading::Error),
+  #[error(transparent)]
+  OtherError(#[from] anyhow::Error),
 }
