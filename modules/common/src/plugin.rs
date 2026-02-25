@@ -1,8 +1,15 @@
 use std::ffi::c_char;
 use std::path::PathBuf;
 
-use libloading::{Library, Symbol, library_filename};
+use libloading::{library_filename, Library, Symbol};
 
+/// Plugin interface access
+///
+/// # Example
+///
+/// ```
+///
+/// ```
 pub struct PluginInterface<'a> {
   pub process_image: Symbol<
     'a,
@@ -15,6 +22,13 @@ pub struct PluginInterface<'a> {
   >,
 }
 
+/// Plugin instantiation and usage
+///
+/// # Example
+///
+/// ```
+///
+/// ```
 pub struct Plugin(Library);
 
 impl Plugin {
