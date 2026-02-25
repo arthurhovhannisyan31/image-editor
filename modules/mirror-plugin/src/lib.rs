@@ -1,4 +1,4 @@
-use std::ffi::{CString, c_char};
+use std::ffi::{c_char, CString};
 
 mod params;
 mod utils;
@@ -10,14 +10,10 @@ use params::Params;
 extern "C" fn process_image(
   width: u32,
   height: u32,
-  data: *mut u8,
+  data: *mut u8,       // size is width * height * 4
   config: *mut c_char, // JSON or empty string
 ) {
   let data_len = (width * height * 4) as usize;
-  println!("width: {width}");
-  println!("height: {height}");
-  println!("data_len: {data_len}");
-
   let buf = unsafe { core::slice::from_raw_parts_mut(data, data_len) };
 
   let params_str = unsafe { CString::from_raw(config) };
