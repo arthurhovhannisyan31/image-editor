@@ -1,13 +1,15 @@
-fn get_index(width: u32, row: u32, column: u32) -> usize {
-  (row * 4 * width + column * 4) as usize
+fn get_index(width: u32, column: u32, row: u32) -> usize {
+  (row * width + column) as usize
 }
 
 pub fn flip_horizontal_in_place(width: u32, height: u32, buf: &mut [u8]) {
   for y in 0..height {
     for x in 0..width / 2 {
       let x2 = width - x - 1;
-      let p2 = get_index(width, x2, y);
-      let p1 = get_index(width, x, y);
+
+      // scale index by 4 to get 4 byte(rgba) alignment
+      let p1 = get_index(width, x, y) * 4;
+      let p2 = get_index(width, x2, y) * 4;
 
       [buf[p2], buf[p1]] = [buf[p1], buf[p2]];
       [buf[p2 + 1], buf[p1 + 1]] = [buf[p1 + 1], buf[p2 + 1]];
@@ -20,9 +22,11 @@ pub fn flip_horizontal_in_place(width: u32, height: u32, buf: &mut [u8]) {
 pub fn flip_vertical_in_place(width: u32, height: u32, buf: &mut [u8]) {
   for y in 0..height / 2 {
     for x in 0..width {
-      let y2 = width - y - 1;
-      let p2 = get_index(width, x, y2);
-      let p1 = get_index(width, x, y);
+      let y2 = height - y - 1;
+
+      // scale index by 4 to get 4 byte(rgba) alignment
+      let p1 = get_index(width, x, y) * 4;
+      let p2 = get_index(width, x, y2) * 4;
 
       [buf[p2], buf[p1]] = [buf[p1], buf[p2]];
       [buf[p2 + 1], buf[p1 + 1]] = [buf[p1 + 1], buf[p2 + 1]];
@@ -38,11 +42,15 @@ mod test {
 
   #[test]
   fn test_flip_horizontal_in_place() {
-    let width = 2;
+    let width = 3;
     let height = 2;
 
-    let mut source_buf = vec![1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4];
-    let target_buf = vec![3, 3, 3, 3, 4, 4, 4, 4, 1, 1, 1, 1, 2, 2, 2, 2];
+    let mut source_buf = vec![
+      1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6,
+    ];
+    let target_buf = vec![
+      3, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 6, 6, 6, 6, 5, 5, 5, 5, 4, 4, 4, 4,
+    ];
 
     flip_horizontal_in_place(width, height, &mut source_buf[..]);
     assert_eq!(source_buf, target_buf);
@@ -50,11 +58,15 @@ mod test {
 
   #[test]
   fn test_flip_vertical_in_place() {
-    let width = 2;
+    let width = 3;
     let height = 2;
 
-    let mut source_buf = vec![1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4];
-    let target_buf = vec![2, 2, 2, 2, 1, 1, 1, 1, 4, 4, 4, 4, 3, 3, 3, 3];
+    let mut source_buf = vec![
+      1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6,
+    ];
+    let target_buf = vec![
+      4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3,
+    ];
 
     flip_vertical_in_place(width, height, &mut source_buf[..]);
     assert_eq!(source_buf, target_buf);

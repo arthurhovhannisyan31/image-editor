@@ -11,10 +11,12 @@ use image::{
 mod configs;
 mod error;
 mod logging;
+mod utils;
 
 use configs::CliArgs;
 use error::ImageProcessorError;
 use logging::init_logging;
+use utils::get_output_file_name;
 
 fn main() -> Result<(), ImageProcessorError> {
   init_logging();
@@ -27,8 +29,7 @@ fn main() -> Result<(), ImageProcessorError> {
     plugin_name,
   } = CliArgs::parse();
 
-  let input_filename = input.file_name().unwrap_or("result".as_ref());
-  let output_path = output.join(input_filename);
+  let output_path = get_output_file_name(&input, &output);
 
   let image = ImageReader::open(input)?.decode()?;
   let (width, height) = image.dimensions();
