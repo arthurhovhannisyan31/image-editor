@@ -9,3 +9,13 @@ repository.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+anyhow.workspace = true
+common.workspace = true
+clap = { version = "4", features = ["derive"] }
+image = { version = "0.25" }
+libloading.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
