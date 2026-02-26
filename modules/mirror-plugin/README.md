@@ -8,13 +8,40 @@
 
 ## Overview
 
+This is image mirror plugin which is loaded during program run.
+Crate is compiled to platform specific library format, which implements `C ABI` and used as
+`Foreign Function Interface`.
+
 ## Description
+
+This is runtime linked library file with exposed `C` like ABI.
+The plugin exposes `process_image` symbol according to [PluginInterface](../common/src/plugin.rs).
+
+The plugin applies blur effect to provided image data in place, no data is returned.
 
 ## Usage
 
+In order to use shared library file (.so, .dll) provide the library name without `lib` prefix and file extension.
+The [libloading](https://docs.rs/libloading/latest/libloading/index.html)
+will [construct filename](https://docs.rs/libloading/latest/libloading/index.html) specific to host OS.
+Please see [Plugin](../common/src/plugin.rs) docs for usage details.
+
+```rust
+use std::path::PathBuf;
+use common::plugin::Plugin;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+  let plugin_dir = PathBuf::from("../../target/release");
+  let plugin_name = String::from("mirror_plugin");
+
+  Ok(())
+}
+```
+
 ## Stack
 
-- Rust
+- [Rust](https://rust-lang.org/)
+- [Serde](https://docs.rs/serde/latest/serde/)
 
 ## Credits
 
