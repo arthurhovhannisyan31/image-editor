@@ -7,13 +7,50 @@
 
 ## Overview
 
+This is a image editor workspace, which
+includes [image-processor](./modules/image-processor), [blur-plugin](./modules/blur-plugin), [mirror-plugin](./modules/mirror-plugin).
+Image editor provides cli tool to edit image by applying different filters, which
+implement [PluginInterface](./modules/common/src/plugin.rs).
+
 ## Description
+
+- [Image-processor](./modules/image-processor) is an image editing CLI tool which uses dynamically loaded libraries for
+  data processing. `Image processor` performs set of validations on provided arguments to ensure files and configs are
+  valid.
+- [Blur-plugin](./modules/blur-plugin), [Mirror-plugin](./modules/mirror-plugin) are shared library files which loaded
+  on demand during program runtime. Plugins implement [PluginInterface](./modules/common/src/plugin.rs) and apply
+  changes to
+  provided image data in place, no data is returned. Plugin performs safety validation
+  checks for provided data pointers.
+
+In its core the following steps are performed:
+
+- Plugin is compiled as library file: `Rust -> C ABI`
+- Image processor loads provided plugin at runtime
+  using [libloading](https://docs.rs/libloading/latest/libloading/index.html)
+- The `process_image` symbol is looked up in plugin: `C ABI <- Rust FFI`
+- The FFI function `process_image()` is called with arguments: `Rust FFI <- Rust`
+- A new image is created with processed data and written to `fs`
+
+`Rust -> C ABI <- Rust FFI <- Rust`
 
 ## Usage
 
+Please find the latest build binary for `image-processor` and plugin files in
+the [GH Releases](https://github.com/arthurhovhannisyan31/image-editor/releases).
+Download the archived files for your OS and run them from the `target/release` folder.
+
+Please
+see [Image-processor](./modules/image-processor), [Blur-plugin](./modules/blur-plugin), [Mirror-plugin](./modules/mirror-plugin)
+and [PluginInterface](./modules/common/src/plugin.rs) documentation for details.
+
 ## Stack
 
-- Rust
+- [Rust](https://rust-lang.org/)
+- [Clap](https://docs.rs/clap/latest/clap/)
+- [Image](https://docs.rs/image/latest/image/index.html)
+- [Libloading](https://docs.rs/libloading/latest/libloading/)
+- [Serde](https://docs.rs/serde/latest/serde/)
 
 ## Credits
 

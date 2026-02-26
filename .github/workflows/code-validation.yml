@@ -24,6 +24,9 @@ jobs:
         run: |
           ./configs/scripts/cargo-fmt.sh
           cargo clippy --all-features --all-targets --quiet
+      - name: Build target
+        run: |
+          cargo build --release
       - name: Validate unit tests
         run: |
           cargo test
