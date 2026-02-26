@@ -3,13 +3,11 @@ use std::io::{self, ErrorKind};
 use std::path::PathBuf;
 use std::str::FromStr;
 
+use crate::error::ImageProcessorError;
 use clap::{Parser, builder::NonEmptyStringValueParser};
 use serde::de::IgnoredAny;
 
-use crate::error::ImageProcessorError;
-
 pub(crate) const EXTENSION_WHITELIST: &[&str] = &["png"];
-// ImageFormat from image
 
 #[derive(Debug, Parser)]
 #[command(version, about, next_line_help = true)]
@@ -18,9 +16,9 @@ pub struct CliArgs {
   pub input: PathBuf,
   #[arg(long, short = 'o', value_name = "Output path", value_parser = path_validation)]
   pub output: PathBuf,
-  #[arg(long, short = 'd', value_name = "Plugin directory", value_parser = path_validation)]
+  #[arg(long, short = 'p', value_name = "Plugin directory", value_parser = path_validation)]
   pub plugin_dir: PathBuf,
-  #[arg(long, short = 'p', value_name = "Plugin name without platform extension", value_parser = NonEmptyStringValueParser::new())]
+  #[arg(long, short = 'P', value_name = "Plugin name without platform extension", value_parser = NonEmptyStringValueParser::new())]
   pub plugin_name: String,
   #[arg(long, short = 'c', value_name = "Config JSON", value_parser = json_validation)]
   pub config: String,

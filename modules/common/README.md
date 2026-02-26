@@ -31,6 +31,7 @@ use common::plugin::Plugin;
 ## Stack
 
 - [Rust](https://rust-lang.org/)
+- [Libloading](https://docs.rs/libloading/latest/libloading/)
 
 ## Credits
 
