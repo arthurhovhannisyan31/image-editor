@@ -12,13 +12,25 @@ This is a common crate that includes modules reused in workspace crates.
 
 ## Description
 
-Plugin
+Please see the [Plugin](./src/plugin.rs) module for details.
 
 ## Usage
 
+Add the `common` to your crate dependencies and use required modules.
+
+```
+// Cargo.toml
+
+common = { path = "./modules/common" }
+```
+
+```rust
+use common::plugin::Plugin;
+```
+
 ## Stack
 
-- Rust
+- [Rust](https://rust-lang.org/)
 
 ## Credits
 
