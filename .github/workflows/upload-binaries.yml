@@ -16,7 +16,7 @@ jobs:
         include:
           - os: windows-latest
             label: windows
-            extension: '.exe'
+            extension: ".exe"
           - os: ubuntu-latest
             label: ubuntu
           - os: macos-latest

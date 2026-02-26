@@ -3,6 +3,7 @@ use std::ffi::{CString, c_char};
 mod params;
 
 mod utils;
+
 use params::Params;
 
 use utils::{
