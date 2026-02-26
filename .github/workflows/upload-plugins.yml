@@ -1,0 +1,46 @@
+name: Upload binaries
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    name: Build plugin
+    permissions:
+      contents: write
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        include:
+          - os: windows-latest
+            label: windows
+            extension: '.dll'
+          - os: ubuntu-latest
+            label: ubuntu
+            extension: '.so'
+          - os: macos-latest
+            label: macos
+            extension: '.so'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Cargo
+        uses: ./.github/actions/setup-cargo
+      - name: Validate tests
+        run: |
+          cargo test
+      - name: Build target
+        run: |
+          cargo build --release
+      - name: Archive to preserve executable permissions
+        run: |
+          tar -cvf blur-plugin-${{ matrix.label }}.tar ./target/release/libblur-plugin${{ matrix.extension }}
+          tar -cvf mirror-plugin-${{ matrix.label }}.tar ./target/release/libmirror-plugin${{ matrix.extension }}
+      - name: Upload artifacts to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload ${{github.event.release.tag_name}} blur-plugin-${{ matrix.label }}.tar
+          gh release upload ${{github.event.release.tag_name}} mirror-plugin-${{ matrix.label }}.tar
