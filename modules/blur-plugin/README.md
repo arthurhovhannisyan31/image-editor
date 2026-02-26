@@ -17,7 +17,8 @@ Crate is compiled to platform specific library format, which implements `C ABI` 
 This is runtime linked library file with exposed `C` like ABI.
 The plugin exposes `process_image` symbol according to [PluginInterface](../common/src/plugin.rs).
 
-The plugin applies blur effect to provided image data in place, no data is returned.
+The plugin applies blur effect to provided image data in place, no data is returned. Plugin performs safety validation
+checks for provided data pointers.
 
 ## Usage
 
