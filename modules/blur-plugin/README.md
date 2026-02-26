@@ -8,21 +8,22 @@
 
 ## Overview
 
-This is image blur plugin which is loaded during program run.
-Crate is compiled to platform specific library format, which implements `C ABI` and used as
+This is an image blur plugin that is loaded during program run.
+Crate is compiled to platform-specific library format, which implements `C ABI` and is used as
 `Foreign Function Interface`.
 
 ## Description
 
-This is runtime linked library file with exposed `C` like ABI.
-The plugin exposes `process_image` symbol according to [PluginInterface](../common/src/plugin.rs).
+This is a runtime-linked library file with exposed `C` like ABI.
+The plugin exposes the `process_image` symbol according to [PluginInterface](../common/src/plugin.rs).
 
-The plugin applies blur effect to provided image data in place, no data is returned. Plugin performs safety validation
+The plugin applies a blur effect to provided image data in place; no data is returned. The plugin performs safety
+validation
 checks for provided data pointers.
 
 ## Usage
 
-In order to use shared library file (.so, .dll) provide the library name without `lib` prefix and file extension.
+To use a shared library file (.so, .dll) provide the library name without the `lib` prefix and file extension.
 The [libloading](https://docs.rs/libloading/latest/libloading/index.html)
 will [construct filename](https://docs.rs/libloading/latest/libloading/index.html) specific to host OS.
 Please see [Plugin](../common/src/plugin.rs) docs for usage details.

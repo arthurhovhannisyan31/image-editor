@@ -21,7 +21,7 @@ The plugin applies blur effect to provided image data in place, no data is retur
 
 ## Usage
 
-In order to use shared library file (.so, .dll) provide the library name without `lib` prefix and file extension.
+To use a shared library file (.so, .dll) provide the library name without the `lib` prefix and file extension.
 The [libloading](https://docs.rs/libloading/latest/libloading/index.html)
 will [construct filename](https://docs.rs/libloading/latest/libloading/index.html) specific to host OS.
 Please see [Plugin](../common/src/plugin.rs) docs for usage details.
