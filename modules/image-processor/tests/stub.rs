@@ -5,7 +5,7 @@ pub struct PluginTestCase {
   pub config_json: String,
 }
 
-pub fn get_plugin_test_cases() -> Vec<PluginTestCase> {
+pub fn get_mirror_plugin_test_cases() -> Vec<PluginTestCase> {
   vec![
     PluginTestCase {
       source_buf: vec![
@@ -37,6 +37,11 @@ pub fn get_plugin_test_cases() -> Vec<PluginTestCase> {
       plugin_name: String::from("mirror_plugin"),
       config_json: String::from("{\"horizontal\":true, \"vertical\":true}"),
     },
+  ]
+}
+
+pub fn get_blur_plugin_test_cases() -> Vec<PluginTestCase> {
+  vec![
     PluginTestCase {
       source_buf: vec![
         1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6,
