@@ -1,8 +1,9 @@
-use std::ffi::{CString, c_char};
+use std::ffi::{c_char, CString};
 
 mod params;
 
 mod utils;
+
 use params::Params;
 
 use utils::{
