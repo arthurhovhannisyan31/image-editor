@@ -39,7 +39,7 @@ extern "C" fn process_image(
     width,
     height,
     stride: width * 4,
-    channels: FastBlurChannels::Channels3,
+    channels: FastBlurChannels::Channels4,
   };
 
   let radius = AnisotropicRadius {

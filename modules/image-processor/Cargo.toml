@@ -23,3 +23,11 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 [dev-dependencies]
 assert_cmd = "2"
 assert_fs = "1"
+
+[[example]]
+name = "mirror-plugin"
+path = "examples/mirror_plugin.rs"
+
+[[example]]
+name = "blur-plugin"
+path = "examples/blur_plugin.rs"

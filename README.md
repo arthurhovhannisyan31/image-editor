@@ -1,5 +1,6 @@
-<div align="center">
-  <h1><code>image editor</code></h1><sub>Built with 🦀</sub>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" align="center">
+    <h1><code>image-editor</code></h1>
+    <h4>Built with <a href="https://rust-lang.org/">🦀</a></h4>
 </div>
 
 [![main](https://github.com/arthurhovhannisyan31/image-editor/actions/workflows/code-validation.yml/badge.svg?branch=main)](https://github.com/arthurhovhannisyan31/image-editor/actions/workflows/code-validation.yml)

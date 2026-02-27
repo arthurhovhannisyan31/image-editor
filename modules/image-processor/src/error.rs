@@ -5,7 +5,7 @@ use image::ImageError;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub(crate) enum ImageProcessorError {
+pub enum ImageProcessorError {
   #[error("IO Error")]
   Io(#[from] io::Error),
   #[error("Failed locating path: `{source_path:?}`")]

@@ -25,14 +25,14 @@ mod test_bin {
       config_json,
     } in get_mirror_plugin_test_cases()
     {
-      let cur_dir = env::current_dir().unwrap();
-      let absolute_target_dir = cur_dir
+      let crate_root = env::current_dir()
+        .unwrap()
         .join("../../") // have to go to workspace level
-        .join(TARGET_DIR)
         .canonicalize()
         .unwrap();
-      let absolute_bin_path = absolute_target_dir.join(TARGET_BINARY_NAME);
-      let mut cmd = Command::new(absolute_bin_path.to_str().unwrap());
+      let target_dir = crate_root.join(TARGET_DIR);
+      let bin_path = target_dir.join(TARGET_BINARY_NAME);
+      let mut cmd = Command::new(bin_path.to_str().unwrap());
 
       let temp_dir = get_temp_dir();
       let source_image_path = temp_dir.join("test.png");
@@ -43,16 +43,19 @@ mod test_bin {
         .unwrap();
 
       cmd
-        .arg("-i")
-        .arg(source_image_str)
-        .arg("-o")
-        .arg(temp_dir.to_str().unwrap())
-        .arg("-p")
-        .arg(absolute_target_dir)
-        .arg("-P")
-        .arg(plugin_name)
-        .arg("-c")
-        .arg(config_json)
+        .current_dir(crate_root)
+        .args([
+          "-i",
+          source_image_str,
+          "-o",
+          temp_dir.to_str().unwrap(),
+          "-p",
+          target_dir.to_str().unwrap(),
+          "-P",
+          &plugin_name,
+          "-c",
+          &config_json,
+        ])
         .assert()
         .success();
 
@@ -69,7 +72,7 @@ mod test_bin {
     }
   }
 
-  #[cfg(not(target_os = "macos"))]
+  // #[cfg(not(target_os = "macos"))]
   // TODO Fix: macOS gives different results for Gaussian distribution ¯\_(°ペ)_/¯
   #[test]
   fn test_blur_plugin() {
@@ -80,14 +83,14 @@ mod test_bin {
       config_json,
     } in get_blur_plugin_test_cases()
     {
-      let cur_dir = env::current_dir().unwrap();
-      let absolute_target_dir = cur_dir
+      let crate_root = env::current_dir()
+        .unwrap()
         .join("../../") // have to go to workspace level
-        .join(TARGET_DIR)
         .canonicalize()
         .unwrap();
-      let absolute_bin_path = absolute_target_dir.join(TARGET_BINARY_NAME);
-      let mut cmd = Command::new(absolute_bin_path.to_str().unwrap());
+      let target_dir = crate_root.join(TARGET_DIR);
+      let bin_path = target_dir.join(TARGET_BINARY_NAME);
+      let mut cmd = Command::new(bin_path.to_str().unwrap());
 
       let temp_dir = get_temp_dir();
       let source_image_path = temp_dir.join("test.png");
@@ -98,16 +101,19 @@ mod test_bin {
         .unwrap();
 
       cmd
-        .arg("-i")
-        .arg(source_image_str)
-        .arg("-o")
-        .arg(temp_dir.to_str().unwrap())
-        .arg("-p")
-        .arg(absolute_target_dir)
-        .arg("-P")
-        .arg(plugin_name)
-        .arg("-c")
-        .arg(config_json)
+        .current_dir(crate_root)
+        .args([
+          "-i",
+          source_image_str,
+          "-o",
+          temp_dir.to_str().unwrap(),
+          "-p",
+          target_dir.to_str().unwrap(),
+          "-P",
+          &plugin_name,
+          "-c",
+          &config_json,
+        ])
         .assert()
         .success();
 
