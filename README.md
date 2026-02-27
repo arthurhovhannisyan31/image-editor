@@ -1,5 +1,6 @@
-<div align="center">
-  <h1><code>image editor</code></h1><sub>Built with 🦀</sub>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" align="center">
+    <h1><code>image-editor</code></h1>
+    <h4>Built with <a href="https://rust-lang.org/">🦀</a></h4>
 </div>
 
 [![main](https://github.com/arthurhovhannisyan31/image-editor/actions/workflows/code-validation.yml/badge.svg?branch=main)](https://github.com/arthurhovhannisyan31/image-editor/actions/workflows/code-validation.yml)
@@ -7,25 +8,26 @@
 
 ## Overview
 
-This is a image editor workspace, which
+This is an image editor workspace, which
 includes [image-processor](./modules/image-processor), [blur-plugin](./modules/blur-plugin), [mirror-plugin](./modules/mirror-plugin).
-Image editor provides cli tool to edit image by applying different filters, which
+The image editor provides a CLI tool to edit images by applying different filters, which
 implement [PluginInterface](./modules/common/src/plugin.rs).
 
 ## Description
 
-- [Image-processor](./modules/image-processor) is an image editing CLI tool which uses dynamically loaded libraries for
-  data processing. `Image processor` performs set of validations on provided arguments to ensure files and configs are
+- [Image-processor](./modules/image-processor) is an image editing CLI tool that uses dynamically loaded libraries for
+  data processing. `Image processor` performs a set of validations on provided arguments to ensure files and configs are
   valid.
-- [Blur-plugin](./modules/blur-plugin), [Mirror-plugin](./modules/mirror-plugin) are shared library files which loaded
+- [Blur-plugin](./modules/blur-plugin), [Mirror-plugin](./modules/mirror-plugin) are shared library files that are
+  loaded
   on demand during program runtime. Plugins implement [PluginInterface](./modules/common/src/plugin.rs) and apply
   changes to
-  provided image data in place, no data is returned. Plugin performs safety validation
+  provided image data in place, no data is returned. The plugin performs safety validation
   checks for provided data pointers.
 
-In its core the following steps are performed:
+In its core, the following steps are performed:
 
-- Plugin is compiled as library file: `Rust -> C ABI`
+- Plugin is compiled as a library file: `Rust -> C ABI`
 - Image processor loads provided plugin at runtime
   using [libloading](https://docs.rs/libloading/latest/libloading/index.html)
 - The `process_image` symbol is looked up in plugin: `C ABI <- Rust FFI`

@@ -67,10 +67,10 @@ pub fn get_blur_plugin_test_cases() -> Vec<PluginTestCase> {
         1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6,
       ],
       target_buf: vec![
-        4, 4, 5, 4, 5, 5, 4, 5, 6, 3, 3, 3, 5, 6, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6,
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
       ],
       plugin_name: String::from("blur_plugin"),
-      config_json: String::from("{\"radius\":2, \"iterations\":2}"),
+      config_json: String::from("{\"radius\":5, \"iterations\":5}"),
     },
   ]
 }

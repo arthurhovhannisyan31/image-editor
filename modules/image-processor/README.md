@@ -8,19 +8,21 @@
 
 ## Overview
 
-This is image editing CLI tool which uses dynamically loaded libraries for data processing.
+This is an image editing CLI tool that uses dynamically loaded libraries for data processing.
 
 ## Description
 
-The `image processor` is a flexible CLI tool which allows to use any kind of library which
-implements [PluginInterface](../common/src/plugin.rs). The `image processor` takes image as source and outputs processed
-file in the same location with `_1` suffix.
+The `image processor` is a flexible CLI tool that allows you to use any kind of library, which
+implements [PluginInterface](../common/src/plugin.rs). The `image processor` takes an image as a source and outputs
+processed
+file in the same location with the `_1` suffix.
 
-`Image processor` performs set of validations on provided arguments to ensure files and configs are valid.
-Please make sure you provide `plugin_dir` as a path to plugin file directory and the `plugin_name` as file name without
+`Image processor` performs a set of validations on provided arguments to ensure files and configs are valid.
+Please ensure you provide `plugin_dir` as a path to the plugin file directory and the `plugin_name` as a file name
+without
 `lib` prefix and file extension.
 Filename resolution is done by [libloading](https://docs.rs/libloading/latest/libloading/index.html) and it
-will [construct filename](https://docs.rs/libloading/latest/libloading/index.html) specific to host OS.
+will [construct filename](https://docs.rs/libloading/latest/libloading/index.html) specific to the host OS.
 The config should be a valid JSON string for a selected plugin.
 
 ## Synopsis
