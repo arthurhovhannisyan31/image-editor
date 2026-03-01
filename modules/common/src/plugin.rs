@@ -1,4 +1,4 @@
-use std::ffi::c_char;
+use std::ffi::{c_char, c_int};
 use std::path::PathBuf;
 
 use libloading::{Library, Symbol, library_filename};
@@ -37,9 +37,9 @@ pub struct PluginInterface<'a> {
     extern "C" fn(
       width: u32,
       height: u32,
-      data: *mut u8,       // size is width * height * 4
-      config: *mut c_char, // JSON or empty string
-    ),
+      data: *mut u8,         // size is width * height * 4
+      config: *const c_char, // JSON or empty string
+    ) -> c_int,
   >,
 }
 
@@ -47,12 +47,12 @@ pub struct PluginInterface<'a> {
 ///
 /// # Example
 ///
-/// ```
+/// ```rust,no_run
 /// use std::path::PathBuf;
 /// use common::plugin::Plugin;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///   let plugin_dir = PathBuf::from("../../target/release");
+///   let plugin_dir = PathBuf::from("target/release");
 ///   let plugin_name = String::from("mirror_plugin");
 ///   let plugin = Plugin::new(plugin_dir, &plugin_name)?;
 ///

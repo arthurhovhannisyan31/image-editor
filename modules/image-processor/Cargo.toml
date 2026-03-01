@@ -12,7 +12,7 @@ rust-version.workspace = true
 anyhow.workspace = true
 common.workspace = true
 clap = { version = "4", features = ["derive"] }
-image = { version = "0.25" }
+image.workspace = true
 libloading.workspace = true
 serde.workspace = true
 serde_json.workspace = true

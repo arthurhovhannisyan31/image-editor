@@ -30,3 +30,4 @@ jobs:
       - name: Validate unit tests
         run: |
           cargo test
+          cargo test -- --ignored

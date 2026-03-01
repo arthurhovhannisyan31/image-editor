@@ -3,8 +3,8 @@ use std::io::{self, ErrorKind};
 use std::path::PathBuf;
 use std::str::FromStr;
 
-use crate::error::ImageProcessorError;
 use clap::{Parser, builder::NonEmptyStringValueParser};
+use common::error::ImageProcessorError;
 use serde::de::IgnoredAny;
 
 pub(crate) const EXTENSION_WHITELIST: &[&str] = &["png"];
