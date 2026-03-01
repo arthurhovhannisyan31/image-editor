@@ -1,20 +1,3 @@
-use std::ffi::c_char;
-
-pub fn validate_pointers(data: *mut u8, config: *mut c_char) -> bool {
-  if data.is_null() {
-    eprintln!("Received a null `data` pointer, cannot process.");
-
-    return false;
-  }
-  if config.is_null() {
-    eprintln!("Received a null `config` pointer, cannot process.");
-
-    return false;
-  }
-
-  true
-}
-
 fn get_index(width: u32, column: u32, row: u32) -> usize {
   (row * width + column) as usize
 }

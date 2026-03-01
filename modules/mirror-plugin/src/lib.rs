@@ -1,31 +1,34 @@
-use std::ffi::{CString, c_char};
+use std::ffi::{CStr, c_char, c_int};
+
+use common::utils::get_rgba_buffer_length;
 
 mod params;
-
 mod utils;
 
 use params::Params;
+use utils::{flip_horizontal_in_place, flip_vertical_in_place};
 
-use utils::{
-  flip_horizontal_in_place, flip_vertical_in_place, validate_pointers,
-};
-
+/// Mutates data buffer by applying image filter
+/// # Safety
+/// * `data` must be a valid pointer to existing data buffer
+/// * `config` must be a valid point to existing JSON string
 #[unsafe(no_mangle)]
-extern "C" fn process_image(
+unsafe extern "C" fn process_image(
   width: u32,
   height: u32,
-  data: *mut u8,       // size is width * height * 4
-  config: *mut c_char, // JSON or empty string
-) {
-  debug_assert!(validate_pointers(data, config));
+  data: *mut u8,
+  config: *const c_char,
+) -> c_int {
+  let data_len: usize = match get_rgba_buffer_length(width, height) {
+    Ok(val) => val,
+    Err(e) => {
+      eprintln!("{e:?}");
+      return 1; // TODO Test if caller is not interrupted
+    }
+  };
 
-  let data_len = (width * height * 4) as usize;
-  // SAFETY: Pointer is valid, data length is calculated as image width * height * rgba segment width
-  // Buffer deallocates memory when exits scope
   let buf = unsafe { core::slice::from_raw_parts_mut(data, data_len) };
-
-  // SAFETY: Pointer is valid, the caller validates string as JSON
-  let params_str = unsafe { CString::from_raw(config) };
+  let params_str = unsafe { CStr::from_ptr(config) };
   let params_string = params_str.to_str().unwrap_or_default();
 
   // In case of wrong JSON content default values will be used instead
@@ -41,4 +44,6 @@ extern "C" fn process_image(
   if vertical {
     flip_vertical_in_place(width, height, buf);
   }
+
+  0
 }
