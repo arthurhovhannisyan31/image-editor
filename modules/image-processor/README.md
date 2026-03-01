@@ -25,6 +25,8 @@ Filename resolution is done by [libloading](https://docs.rs/libloading/latest/li
 will [construct filename](https://docs.rs/libloading/latest/libloading/index.html) specific to the host OS.
 The config should be a valid JSON string for a selected plugin.
 
+> Please run release build before running binary examples
+
 ## Synopsis
 
 - `-i, --input <PathBuf>` Path to image file

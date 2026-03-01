@@ -1,4 +1,4 @@
-use image_processor::error::ImageProcessorError;
+use common::error::ImageProcessorError;
 use std::process::Command;
 
 fn main() -> Result<(), ImageProcessorError> {

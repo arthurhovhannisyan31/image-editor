@@ -17,6 +17,7 @@ mod test_bin {
   static TARGET_BINARY_NAME: &str = "image-processor";
 
   #[test]
+  #[ignore] // E2E tests require release build
   fn test_mirror_plugin() {
     for PluginTestCase {
       source_buf,
@@ -72,9 +73,8 @@ mod test_bin {
     }
   }
 
-  // #[cfg(not(target_os = "macos"))]
-  // TODO Fix: macOS gives different results for Gaussian distribution ¯\_(°ペ)_/¯
   #[test]
+  #[ignore] // E2E tests require release build
   fn test_blur_plugin() {
     for PluginTestCase {
       source_buf,

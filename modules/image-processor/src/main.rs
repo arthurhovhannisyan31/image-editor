@@ -3,20 +3,18 @@ use std::str::FromStr;
 
 use anyhow::anyhow;
 use clap::Parser;
-use common::plugin::Plugin;
+use common::{error::ImageProcessorError, plugin::Plugin};
 use image::{
   DynamicImage, GenericImageView, ImageFormat, ImageReader, RgbaImage,
 };
 
 mod configs;
-mod error;
 mod logging;
 mod utils;
 
 use configs::CliArgs;
-use error::ImageProcessorError;
 use logging::init_logging;
-use utils::get_output_file_name;
+use utils::{get_output_file_name, validate_plugin_arguments};
 
 fn main() -> Result<(), ImageProcessorError> {
   init_logging();
@@ -40,13 +38,21 @@ fn main() -> Result<(), ImageProcessorError> {
   let process_image = plugin.interface()?.process_image;
 
   let config_str = CString::from_str(&config.clone()).unwrap_or_default();
+  let buf_ptr = buf.as_mut_ptr();
+  let config_ptr = config_str.as_ptr();
 
-  process_image(
-    width,
-    height,
-    buf.as_mut_ptr(),
-    config_str.into_raw(), // Memory freed on plugin side
-  );
+  validate_plugin_arguments(width, height, buf_ptr, config_ptr)?;
+
+  unsafe {
+    // SAFETY
+    // Image has valid dimension
+    // Buffer pointer is a valid pointer to existing data buffer
+    // Config pointer is a valid point to existing JSON string
+    let result = process_image(width, height, buf_ptr, config_ptr);
+    if result != 0 {
+      return Err(ImageProcessorError::PluginError(plugin_name));
+    }
+  }
 
   let Some(image_buf) = RgbaImage::from_raw(width, height, buf) else {
     return Err(ImageProcessorError::OtherError(anyhow!("Some error")));
