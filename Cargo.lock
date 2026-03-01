@@ -227,6 +227,7 @@ dependencies = [
 name = "blur-plugin"
 version = "0.1.0"
 dependencies = [
+ "common",
  "libblur",
  "serde",
  "serde_json",
@@ -341,7 +342,10 @@ checksum = "b05b61dc5112cbb17e4b6cd61790d9845d13888356391624cbe7e41efeac1e75"
 name = "common"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "image",
  "libloading",
+ "thiserror",
 ]
 
 [[package]]
@@ -814,6 +818,7 @@ dependencies = [
 name = "mirror-plugin"
 version = "0.1.0"
 dependencies = [
+ "common",
  "serde",
  "serde_json",
 ]

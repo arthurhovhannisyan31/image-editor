@@ -32,6 +32,7 @@ jobs:
       - name: Validate tests
         run: |
           cargo test
+          cargo test -- --ignored
       - name: Archive to preserve executable permissions
         run: |
           tar -cvf image-processor-${{ matrix.label }}.tar ./target/release/image-processor${{ matrix.extension }}

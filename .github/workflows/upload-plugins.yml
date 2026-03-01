@@ -37,7 +37,7 @@ jobs:
       - name: Validate tests
         run: |
           cargo test
-          ls ./target/release
+          cargo test -- --ignored
       - name: Archive to preserve executable permissions
         run: |
           tar -cvf blur-plugin-${{ matrix.label }}.tar ./target/release/${{ matrix.prefix }}blur_plugin${{ matrix.extension }}
