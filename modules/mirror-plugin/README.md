@@ -19,6 +19,11 @@ The plugin exposes `process_image` symbol according to [PluginInterface](../comm
 
 The plugin applies blur effect to provided image data in place, no data is returned.
 
+## Error codes
+
+- `1` Arguments validation failed
+- `2` Failed reading image data
+
 ## Usage
 
 To use a shared library file (.so, .dll) provide the library name without the `lib` prefix and file extension.

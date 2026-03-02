@@ -21,6 +21,12 @@ The plugin applies a blur effect to provided image data in place; no data is ret
 validation
 checks for provided data pointers.
 
+## Error codes
+
+- `1` Arguments validation failed
+- `2` Failed reading image data
+- `3` Failed processing image data
+
 ## Usage
 
 To use a shared library file (.so, .dll) provide the library name without the `lib` prefix and file extension.

@@ -14,7 +14,7 @@ mod utils;
 
 use configs::CliArgs;
 use logging::init_logging;
-use utils::{get_output_file_name, validate_plugin_arguments};
+use utils::get_output_file_name;
 
 fn main() -> Result<(), ImageProcessorError> {
   init_logging();
@@ -41,13 +41,10 @@ fn main() -> Result<(), ImageProcessorError> {
   let buf_ptr = buf.as_mut_ptr();
   let config_ptr = config_str.as_ptr();
 
-  validate_plugin_arguments(width, height, buf_ptr, config_ptr)?;
-
   unsafe {
     // SAFETY
-    // Image has valid dimension
     // Buffer pointer is a valid pointer to existing data buffer
-    // Config pointer is a valid point to existing JSON string
+    // Config pointer is a valid pointer to existing JSON string
     let result = process_image(width, height, buf_ptr, config_ptr);
     if result != 0 {
       return Err(ImageProcessorError::PluginError(plugin_name));
