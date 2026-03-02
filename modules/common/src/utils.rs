@@ -1,3 +1,4 @@
+use std::ffi::{c_char, c_int};
 use std::io;
 use std::io::ErrorKind;
 
@@ -17,4 +18,33 @@ pub fn get_rgba_buffer_length(
       format!("Image size is too big, max supported image size is : {MAX_IMAGE_SIZE_MB} Mb.")
     ))
   })
+}
+
+pub fn validate_plugin_arguments(
+  width: u32,
+  height: u32,
+  data: *mut u8,
+  config: *const c_char,
+) -> c_int {
+  if width == 0 || height == 0 {
+    eprintln!("Image dimensions should not be zero");
+
+    return 1;
+  }
+  if data.is_null() {
+    eprintln!(
+      "Couldn't read image data. The `data` pointer is null, cannot process."
+    );
+
+    return 1;
+  }
+  if config.is_null() {
+    eprintln!(
+      "Couldn't read plugin config. The `config` pointer is null, cannot process."
+    );
+
+    return 1;
+  }
+
+  0
 }
