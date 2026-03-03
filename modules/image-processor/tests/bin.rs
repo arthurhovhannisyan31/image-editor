@@ -13,7 +13,7 @@ mod test_bin {
   };
   use crate::utils::get_temp_dir;
 
-  static TARGET_DIR: &str = "target/release";
+  static TARGET_DIR: &str = "target/debug";
   static TARGET_BINARY_NAME: &str = "image-processor";
 
   #[test]
