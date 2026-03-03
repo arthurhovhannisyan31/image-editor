@@ -16,6 +16,7 @@ mod test_bin {
   static TARGET_DIR: &str = "target/debug";
   static TARGET_BINARY_NAME: &str = "image-processor";
 
+  #[cfg(not(miri))] // libc::getcwd is not supported in Miri
   #[test]
   #[ignore] // E2E tests require release build
   fn test_mirror_plugin() {
@@ -73,6 +74,7 @@ mod test_bin {
     }
   }
 
+  #[cfg(not(miri))] // libc::getcwd is not supported in Miri
   #[test]
   #[ignore] // E2E tests require release build
   fn test_blur_plugin() {

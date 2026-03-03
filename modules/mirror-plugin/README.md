@@ -37,7 +37,7 @@ use common::plugin::Plugin;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
   let plugin_dir = PathBuf::from("plugin_dir");
-  let plugin_name = String::from("mirror_plugin");
+  let plugin_name = String::from("plugin_name");
 
   Ok(())
 }
