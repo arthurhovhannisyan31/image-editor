@@ -47,13 +47,14 @@ pub struct PluginInterface<'a> {
 ///
 /// # Example
 ///
+/// Skip code run since plugin_dir and plugin_name needs to be validated at runtime
 /// ```rust,no_run
 /// use std::path::PathBuf;
 /// use common::plugin::Plugin;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///   let plugin_dir = PathBuf::from("target/release");
-///   let plugin_name = String::from("mirror_plugin");
+///   let plugin_dir = PathBuf::from("plugin_dir");
+///   let plugin_name = String::from("plugin_name");
 ///   let plugin = Plugin::new(plugin_dir, &plugin_name)?;
 ///
 ///   Ok(())

@@ -39,8 +39,8 @@ use std::path::PathBuf;
 use common::plugin::Plugin;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-  let plugin_dir = PathBuf::from("../../target/release");
-  let plugin_name = String::from("blur_plugin");
+  let plugin_dir = PathBuf::from("plugin_dir");
+  let plugin_name = String::from("plugin_name");
 
   Ok(())
 }

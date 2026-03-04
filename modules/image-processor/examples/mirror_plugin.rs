@@ -2,7 +2,7 @@ use common::error::ImageProcessorError;
 use std::process::Command;
 
 fn main() -> Result<(), ImageProcessorError> {
-  let mut cmd = Command::new("./target/release/image-processor");
+  let mut cmd = Command::new("./target/debug/image-processor");
 
   let status = cmd
     .args([
@@ -11,7 +11,7 @@ fn main() -> Result<(), ImageProcessorError> {
       "-o",
       "./static/img/",
       "-p",
-      "./target/release",
+      "./target/debug",
       "-P",
       "mirror_plugin",
       "-c",

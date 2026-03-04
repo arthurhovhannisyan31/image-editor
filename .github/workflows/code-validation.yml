@@ -18,16 +18,25 @@ jobs:
       - name: Setup Cargo
         uses: ./.github/actions/setup-cargo
       - name: Validate code
-        run: |
-          cargo check --quiet
+        run: cargo check --quiet
       - name: Validate linters
         run: |
           ./configs/scripts/cargo-fmt.sh
           cargo clippy --all-features --all-targets --quiet
+      - name: Setup runner
+        run: |
+          rustup override set nightly
+          rustup component add miri
+          cargo miri setup
+          if ! which valgrind; then
+            sudo apt-get install valgrind
+          fi
+          cargo install cargo-valgrind
       - name: Build target
-        run: |
-          cargo build --release
+        run: cargo build
       - name: Validate unit tests
+        run: make test-all
+      - name: Validate safety checks
         run: |
-          cargo test
-          cargo test -- --ignored
+          make check-miri
+          make check-valgrind
