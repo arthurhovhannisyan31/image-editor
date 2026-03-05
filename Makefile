@@ -6,5 +6,5 @@ test-all:
 check-miri:
 	cargo miri test
 check-valgrind:
-	cargo valgrind run --example mirror-plugin
-	cargo valgrind run --example blur-plugin
+	valgrind --leak-check=full --show-leak-kinds=all cargo run --example mirror-plugin
+	valgrind --leak-check=full --show-leak-kinds=all cargo run --example blur-plugin

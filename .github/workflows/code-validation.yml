@@ -31,7 +31,6 @@ jobs:
           if ! which valgrind; then
             sudo apt-get install valgrind
           fi
-          cargo install cargo-valgrind
       - name: Build target
         run: cargo build
       - name: Validate unit tests
