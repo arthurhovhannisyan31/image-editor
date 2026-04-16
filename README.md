@@ -8,10 +8,17 @@
 
 ## Overview
 
-This is an image editor workspace, which
-includes [image-processor](./modules/image-processor), [blur-plugin](./modules/blur-plugin), [mirror-plugin](./modules/mirror-plugin).
-The image editor provides a CLI tool to edit images by applying different filters, which
-implement [PluginInterface](./modules/common/src/plugin.rs).
+A high-performance, modular image processing CLI built in Rust, featuring a dynamic plugin architecture. The system
+leverages FFI and C ABI to load external shared libraries (like blur and mirror effects) at runtime, allowing for
+extensible image manipulation without recompiling the core engine.
+
+Key Technical Highlights:
+
+- Dynamic Linking: Utilizes libloading for runtime-linked data processing.
+- Memory Safety: Implements rigorous validation for data pointers and FFI boundaries to ensure safe in-place image
+  modification.
+- Architecture: Decouples the CLI engine from the processing logic via a standardized PluginInterface.
+- Tooling: Built with a focus on cross-platform compatibility and efficient file I/O.
 
 ## Description
 
